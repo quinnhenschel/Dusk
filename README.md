@@ -1,2 +1,2 @@
 # Dusk
-Top down bow/arrow exploration game. 
+Top down bow/arrow exploration game.  
