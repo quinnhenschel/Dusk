@@ -7,6 +7,7 @@ public:
 
 	int moveSpeed;
 	int direction;
+	int lastFacing;
 	int zIndex;
 
 	int width;

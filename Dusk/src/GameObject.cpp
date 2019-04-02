@@ -7,6 +7,7 @@ GameObject::GameObject()
 	positionX = positionY = 0;
 	moveSpeed = 10;
 	direction = 0;
+	lastFacing = 1;
 	zIndex = 0;
 	width = 60;
 	height = 140;

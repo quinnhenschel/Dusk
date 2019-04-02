@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "GameObject.h"
+#include "AnimatedObject.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Render.h"
@@ -12,6 +13,8 @@ class ofApp : public ofBaseApp{
 		Player player;
 		Enemy enemy;
 		Render render;
+
+		bool keyDown[255]; //all keys 
 
 		void setup();
 		void update();

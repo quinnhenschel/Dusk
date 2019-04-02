@@ -22,6 +22,6 @@ void Render::moveCamera()
 
 void Render::draw(Player* player, Enemy* enemy)
 {
-	player->Draw();
+	player->Animate();
 	enemy->Draw();
 }
