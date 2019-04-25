@@ -10,6 +10,8 @@ public:
 	int lastFacing;
 	int zIndex;
 
+	bool staticPosition;
+
 	int width;
 	int height;
 	ofImage img;
