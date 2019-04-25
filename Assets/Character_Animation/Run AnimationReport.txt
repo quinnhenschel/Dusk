@@ -1,0 +1,29 @@
+Report created: 
+	4/24/2019	8:48:11 PM
+
+Project name: Run Animation.aep
+
+Source files collected to: 
+	F:\Desktop\Run Animation folder\Run Animation folder\Run Animation folder
+
+Source files collected: All
+
+Collected comps:  
+	characterAnimation
+	
+Number of collected files:  2
+
+Size of collected files:  501 KB
+
+Collected source files: 
+	F:\Downloads\Muybridge_Run_Cycle_by_Cacodaemonia.jpg
+	F:\Google Drive\School\Software Design for Multimedia - IMD3006\Assignments\Assignment 3\working\Assets\characterToAnimate.ai
+	
+Rendering plug-ins:
+	Classic 3D
+	
+Effects used:  1
+
+Effect:  Puppet
+	
+
