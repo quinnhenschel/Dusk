@@ -5,7 +5,6 @@
 #include "AnimatedObject.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "Key.h"
 #include "Physics.h"
 #include "Render.h"
 
@@ -21,9 +20,9 @@ class ofApp : public ofBaseApp{
 
 		GameObject environment;
 
-		Key key1;
-		Key key2;
-		Key key3;
+		GameObject key1;
+		GameObject key2;
+		GameObject key3;
 
 		bool keyDown[255]; //all keys 
 

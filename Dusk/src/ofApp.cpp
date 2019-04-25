@@ -134,7 +134,10 @@ void ofApp::update(){
 			key3.positionY += player.moveSpeed;
 		}
 
-		player.run();
+		if (keyDown[OF_KEY_RIGHT] == false && keyDown[OF_KEY_LEFT] == false) {
+			player.run();
+		}
+		
 	}
 
 	if (keyDown[OF_KEY_DOWN] == true)
@@ -153,7 +156,9 @@ void ofApp::update(){
 			key3.positionY -= player.moveSpeed;
 		}
 
-		player.run();
+		if (keyDown[OF_KEY_RIGHT] == false && keyDown[OF_KEY_LEFT] == false) {
+			player.run();
+		}
 	}
 
 	if (noKeyDown == true)
