@@ -5,7 +5,10 @@
 #include "AnimatedObject.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Physics.h"
 #include "Render.h"
+
+#define COLLISION_DISTANCE 50
 
 class ofApp : public ofBaseApp{
 
@@ -13,12 +16,21 @@ class ofApp : public ofBaseApp{
 		Player player;
 		Enemy enemy;
 		Render render;
+		Physics physics;
+
+		GameObject environment;
+
+		GameObject key1;
+		GameObject key2;
+		GameObject key3;
 
 		bool keyDown[255]; //all keys 
 
 		void setup();
 		void update();
 		void draw();
+
+		void keyLogic();
 
 		void keyPressed(int key);
 		void keyReleased(int key);

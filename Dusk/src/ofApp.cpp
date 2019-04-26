@@ -2,12 +2,47 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	player.positionX = 0;
-	player.positionY = 200;
+	
+	ofSetFrameRate(30);
 
+	
+	//init environment
+	environment.positionX = 0;
+	environment.positionY = 0;
+	environment.img.load("images/environment.png");
+
+	
+	//init keys
+	key1.positionX = 300;
+	key1.positionY = 300;
+	key1.img.load("images/key1.png");
+	key1.staticPosition = false;
+
+	key2.positionX = 400;
+	key2.positionY = 500;
+	key2.img.load("images/key2.png");
+	key2.staticPosition = false;
+
+	key3.positionX = 200;
+	key3.positionY = 600;
+	key3.img.load("images/key3.png");
+	key3.staticPosition = false;
+
+	key1.height = key1.width = key2.height = key2.width = key3.height = key3.width = 50;
+
+
+	//init enemy 
 	enemy.positionX = 100;
 	enemy.positionY = 400;
 
+	enemy.img.load("images/characterStandingStill.png");
+
+
+	//init player
+	player.positionX = 640 - player.height / 2;
+	player.positionY = 360 - player.width / 2;
+	player.height = 150;
+	player.width = 150;
 
 	player.SetNumFrames(23);
 	player.runningAnimation[0].load("images/characterAnimation/characterAnimation00001.png");
@@ -36,9 +71,6 @@ void ofApp::setup(){
 
 	player.standingStill.load("images/characterStandingStill.png");
 
-	enemy.img.load("images/characterStandingStill.png");
-
-	ofSetFrameRate(60);
 }
 
 //--------------------------------------------------------------
@@ -46,49 +78,132 @@ void ofApp::update(){
 
 	bool noKeyDown = true;
 
-	if (keyDown[OF_KEY_RIGHT] == true)
+	if (keyDown['d'] == true)
 	{
 		noKeyDown = false;
 		player.direction = 1;
 		player.lastFacing = 1;
-		player.positionX += player.moveSpeed;
+		environment.positionX -= player.moveSpeed;
+
+		if (key1.staticPosition == false){
+			key1.positionX -= player.moveSpeed;
+		}
+		if (key2.staticPosition == false) {
+			key2.positionX -= player.moveSpeed;
+		}
+		if (key3.staticPosition == false) {
+			key3.positionX -= player.moveSpeed;
+		}
+
 		player.run();
 	}
 
-	if (keyDown[OF_KEY_LEFT] == true)
+	if (keyDown['a'] == true)
 	{
 		noKeyDown = false;
 		player.direction = 2;
 		player.lastFacing = 2;
-		player.positionX -= player.moveSpeed;
+		environment.positionX += player.moveSpeed;
+
+		if (key1.staticPosition == false) {
+			key1.positionX += player.moveSpeed;
+		}
+		if (key2.staticPosition == false) {
+			key2.positionX += player.moveSpeed;
+		}
+		if (key3.staticPosition == false) {
+			key3.positionX += player.moveSpeed;
+		}
+
 		player.run();
 	}
 
-	if (keyDown[OF_KEY_UP] == true)
+	if (keyDown['w'] == true)
 	{
 		noKeyDown = false;
 		player.direction = player.lastFacing;
-		player.positionY -= player.moveSpeed;
-		player.run();
+		environment.positionY += player.moveSpeed;
+
+		if (key1.staticPosition == false) {
+			key1.positionY += player.moveSpeed;
+		}
+		if (key2.staticPosition == false) {
+			key2.positionY += player.moveSpeed;
+		}
+		if (key3.staticPosition == false) {
+			key3.positionY += player.moveSpeed;
+		}
+
+		if (keyDown['d'] == false && keyDown['a'] == false) {
+			player.run();
+		}
+		
 	}
 
-	if (keyDown[OF_KEY_DOWN] == true)
+	if (keyDown['s'] == true)
 	{
 		noKeyDown = false;
 		player.direction = player.lastFacing;
-		player.positionY += player.moveSpeed;
-		player.run();
+		environment.positionY -= player.moveSpeed;
+
+		if (key1.staticPosition == false) {
+			key1.positionY -= player.moveSpeed;
+		}
+		if (key2.staticPosition == false) {
+			key2.positionY -= player.moveSpeed;
+		}
+		if (key3.staticPosition == false) {
+			key3.positionY -= player.moveSpeed;
+		}
+
+		if (keyDown['d'] == false && keyDown['a'] == false) {
+			player.run();
+		}
 	}
 
 	if (noKeyDown == true)
 	{
 		player.direction = 0;
 	}
+
+	//keys
+	keyLogic();
+
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	render.draw(&player, &enemy);
+
+
+
+
+	render.draw(&player, &enemy, &key1, &key2, &key3, &environment);
+
+
+}
+
+void ofApp::keyLogic(){
+
+	if (physics.checkDistance(player.positionX + (player.width / 2), player.positionY + (player.height / 2), key1.positionX + (key1.width / 2), key1.positionY + (key1.height / 2)) < COLLISION_DISTANCE){
+		cout << "key 1\n";
+		key1.positionX = 50;
+		key1.positionY = 50;
+		key1.staticPosition = true;
+	}
+
+	if (physics.checkDistance(player.positionX + (player.width / 2), player.positionY + (player.height / 2), key2.positionX + (key2.width / 2), key2.positionY + (key2.height / 2)) < COLLISION_DISTANCE) {
+		cout << "key 2\n";
+		key2.positionX = 100;
+		key2.positionY = 50;
+		key2.staticPosition = true;
+	}
+
+	if (physics.checkDistance(player.positionX + (player.width / 2), player.positionY + (player.height / 2), key3.positionX + (key3.width / 2), key3.positionY + (key3.height / 2)) < COLLISION_DISTANCE) {
+		cout << "key 3\n";
+		key3.positionX = 150;
+		key3.positionY = 50;
+		key3.staticPosition = true;
+	}
 }
 
 //--------------------------------------------------------------
@@ -100,6 +215,15 @@ void ofApp::keyPressed(int key){
 void ofApp::keyReleased(int key){
 	keyDown[key] = false;
 }
+
+
+
+
+
+
+
+
+
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
