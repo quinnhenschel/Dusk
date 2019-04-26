@@ -78,7 +78,7 @@ void ofApp::update(){
 
 	bool noKeyDown = true;
 
-	if (keyDown[OF_KEY_RIGHT] == true)
+	if (keyDown['d'] == true)
 	{
 		noKeyDown = false;
 		player.direction = 1;
@@ -98,7 +98,7 @@ void ofApp::update(){
 		player.run();
 	}
 
-	if (keyDown[OF_KEY_LEFT] == true)
+	if (keyDown['a'] == true)
 	{
 		noKeyDown = false;
 		player.direction = 2;
@@ -118,7 +118,7 @@ void ofApp::update(){
 		player.run();
 	}
 
-	if (keyDown[OF_KEY_UP] == true)
+	if (keyDown['w'] == true)
 	{
 		noKeyDown = false;
 		player.direction = player.lastFacing;
@@ -134,13 +134,13 @@ void ofApp::update(){
 			key3.positionY += player.moveSpeed;
 		}
 
-		if (keyDown[OF_KEY_RIGHT] == false && keyDown[OF_KEY_LEFT] == false) {
+		if (keyDown['d'] == false && keyDown['a'] == false) {
 			player.run();
 		}
 		
 	}
 
-	if (keyDown[OF_KEY_DOWN] == true)
+	if (keyDown['s'] == true)
 	{
 		noKeyDown = false;
 		player.direction = player.lastFacing;
@@ -156,7 +156,7 @@ void ofApp::update(){
 			key3.positionY -= player.moveSpeed;
 		}
 
-		if (keyDown[OF_KEY_RIGHT] == false && keyDown[OF_KEY_LEFT] == false) {
+		if (keyDown['d'] == false && keyDown['a'] == false) {
 			player.run();
 		}
 	}
