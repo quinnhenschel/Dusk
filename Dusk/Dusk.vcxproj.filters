@@ -31,6 +31,9 @@
     <ClCompile Include="src\Render.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Arrow.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -60,6 +63,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\Render.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Arrow.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

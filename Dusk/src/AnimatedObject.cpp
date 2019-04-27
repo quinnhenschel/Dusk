@@ -19,7 +19,6 @@ void AnimatedObject::run()
 	if (numFrames > 0)
 	{
 		currentFrame++;
-		cout << currentFrame++ << "\n";
 
 		if (currentFrame >= numFrames)
 			currentFrame = 0;

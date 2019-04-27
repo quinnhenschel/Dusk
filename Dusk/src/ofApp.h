@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "AnimatedObject.h"
 #include "Player.h"
+#include "Arrow.h"
 #include "Enemy.h"
 #include "Physics.h"
 #include "Render.h"
@@ -14,15 +15,30 @@ class ofApp : public ofBaseApp{
 
 	public:
 		Player player;
-		Enemy enemy;
+		Arrow arrow;
+
+		Enemy enemy1;
+		Enemy enemy2;
+		Enemy enemy3;
+
 		Render render;
 		Physics physics;
 
 		GameObject environment;
 
+		int gameState;
+		GameObject startScreen;
+		GameObject winScreen;
+		GameObject loseScreen;
+
+
 		GameObject key1;
 		GameObject key2;
 		GameObject key3;
+
+		GameObject heart1;
+		GameObject heart2;
+		GameObject heart3;
 
 		bool keyDown[255]; //all keys 
 
@@ -31,6 +47,7 @@ class ofApp : public ofBaseApp{
 		void draw();
 
 		void keyLogic();
+
 
 		void keyPressed(int key);
 		void keyReleased(int key);
