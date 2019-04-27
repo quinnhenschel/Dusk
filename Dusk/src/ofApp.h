@@ -19,6 +19,9 @@ class ofApp : public ofBaseApp{
 		Physics physics;
 
 		GameObject environment;
+		ofImage collisionMap;
+
+		GameObject tree[9];
 
 		GameObject key1;
 		GameObject key2;
