@@ -13,6 +13,6 @@ public:
 
 	void determineGameObjectZ();
 	void moveCamera();
-	void draw(Player* player, Enemy* enemy, GameObject* key1, GameObject* key2, GameObject* key3, GameObject* environment);
+	void draw(Player* player, Enemy* enemy, GameObject* key1, GameObject* key2, GameObject* key3, GameObject* environment, GameObject* tree, int tree_size);
 
 };

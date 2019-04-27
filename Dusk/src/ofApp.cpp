@@ -1,5 +1,6 @@
 #include "ofApp.h"
 
+#define TREES 9
 //--------------------------------------------------------------
 void ofApp::setup(){
 	
@@ -7,11 +8,33 @@ void ofApp::setup(){
 
 	
 	//init environment
-	environment.positionX = 0;
-	environment.positionY = 0;
-	environment.img.load("images/environment.png");
+	environment.positionX = -1470;
+	environment.positionY = -1250;
+	environment.img.load("images/Dusk_Map_Art.jpg");
 
-	
+	//collision Map
+	collisionMap.load("images/Dusk_Map.jpg");
+	physics.setCollisionMap(&collisionMap);
+
+	//Trees
+	int tree_pos_x[TREES] = { 532, 940, 2443, 2131, 1410, 676, 1092, 2204, 1947};
+	int tree_pos_y[TREES] = { 883, 727, 1006, 681, 535, 536, 1391, 1414, 898};
+	// Set initial tree positions
+	for (int i = 0; i < TREES; i++) {
+		if (i < 4) {
+			tree[i].img.load("images/tree1.png");
+			tree[i].height = 430;
+		}
+		else {
+			tree[i].img.load("images/tree2.png");
+			tree[i].height = 350;
+		}
+		tree[i].positionX = tree_pos_x[i] + environment.positionX;
+		tree[i].positionY = tree_pos_y[i] + environment.positionY;
+		tree[i].zIndex = tree_pos_y[i] + tree[i].height;
+		cout << tree[i].zIndex <<"\n";
+	}
+
 	//init keys
 	key1.positionX = 300;
 	key1.positionY = 300;
@@ -43,6 +66,7 @@ void ofApp::setup(){
 	player.positionY = 360 - player.width / 2;
 	player.height = 150;
 	player.width = 150;
+	player.zIndex = (player.positionY + player.img.getHeight()) - 10;
 
 	player.SetNumFrames(23);
 	player.runningAnimation[0].load("images/characterAnimation/characterAnimation00001.png");
@@ -77,87 +101,116 @@ void ofApp::setup(){
 void ofApp::update(){
 
 	bool noKeyDown = true;
+	int j = (environment.positionX * -1) + 640;
+	int i = (environment.positionY * -1) + (460);
 
 	if (keyDown['d'] == true)
 	{
-		noKeyDown = false;
-		player.direction = 1;
-		player.lastFacing = 1;
-		environment.positionX -= player.moveSpeed;
+		if (physics.obstacles[j + 11][i] == true)
+		{
+			noKeyDown = false;
+			player.direction = 1;
+			player.lastFacing = 1;
+			environment.positionX -= player.moveSpeed;
 
-		if (key1.staticPosition == false){
-			key1.positionX -= player.moveSpeed;
-		}
-		if (key2.staticPosition == false) {
-			key2.positionX -= player.moveSpeed;
-		}
-		if (key3.staticPosition == false) {
-			key3.positionX -= player.moveSpeed;
-		}
+			for (int t = 0; t < TREES; t++) {
+				tree[t].positionX -= player.moveSpeed;
+			}
 
-		player.run();
+			if (key1.staticPosition == false) {
+				key1.positionX -= player.moveSpeed;
+			}
+			if (key2.staticPosition == false) {
+				key2.positionX -= player.moveSpeed;
+			}
+			if (key3.staticPosition == false) {
+				key3.positionX -= player.moveSpeed;
+			}
+			player.run();
+		}			
 	}
 
 	if (keyDown['a'] == true)
 	{
-		noKeyDown = false;
-		player.direction = 2;
-		player.lastFacing = 2;
-		environment.positionX += player.moveSpeed;
+		if (physics.obstacles[j - 11][i] == true)
+		{
+			noKeyDown = false;
+			player.direction = 2;
+			player.lastFacing = 2;
+			environment.positionX += player.moveSpeed;
 
-		if (key1.staticPosition == false) {
-			key1.positionX += player.moveSpeed;
-		}
-		if (key2.staticPosition == false) {
-			key2.positionX += player.moveSpeed;
-		}
-		if (key3.staticPosition == false) {
-			key3.positionX += player.moveSpeed;
-		}
+			for (int t = 0; t < TREES; t++) {
+				tree[t].positionX += player.moveSpeed;
+			}
 
-		player.run();
+			if (key1.staticPosition == false) {
+				key1.positionX += player.moveSpeed;
+			}
+			if (key2.staticPosition == false) {
+				key2.positionX += player.moveSpeed;
+			}
+			if (key3.staticPosition == false) {
+				key3.positionX += player.moveSpeed;
+			}
+
+			player.run();
+		}
 	}
 
 	if (keyDown['w'] == true)
 	{
-		noKeyDown = false;
-		player.direction = player.lastFacing;
-		environment.positionY += player.moveSpeed;
+		if (physics.obstacles[j][i - 11] == true)
+		{
+			noKeyDown = false;
+			player.direction = player.lastFacing;
+			environment.positionY += player.moveSpeed;
 
-		if (key1.staticPosition == false) {
-			key1.positionY += player.moveSpeed;
-		}
-		if (key2.staticPosition == false) {
-			key2.positionY += player.moveSpeed;
-		}
-		if (key3.staticPosition == false) {
-			key3.positionY += player.moveSpeed;
-		}
+			for (int t = 0; t < TREES; t++) {
+				tree[t].positionY += player.moveSpeed;
+			}
 
-		if (keyDown['d'] == false && keyDown['a'] == false) {
-			player.run();
+			if (key1.staticPosition == false) {
+				key1.positionY += player.moveSpeed;
+			}
+			if (key2.staticPosition == false) {
+				key2.positionY += player.moveSpeed;
+			}
+			if (key3.staticPosition == false) {
+				key3.positionY += player.moveSpeed;
+			}
+
+			if (keyDown['d'] == false && keyDown['a'] == false) {
+				player.run();
+			}
 		}
 		
 	}
 
 	if (keyDown['s'] == true)
 	{
-		noKeyDown = false;
-		player.direction = player.lastFacing;
-		environment.positionY -= player.moveSpeed;
+		if (physics.obstacles[j][i + 11] == true)
+		{
+			noKeyDown = false;
+			player.direction = player.lastFacing;
+			environment.positionY -= player.moveSpeed;
 
-		if (key1.staticPosition == false) {
-			key1.positionY -= player.moveSpeed;
-		}
-		if (key2.staticPosition == false) {
-			key2.positionY -= player.moveSpeed;
-		}
-		if (key3.staticPosition == false) {
-			key3.positionY -= player.moveSpeed;
-		}
+			for (int t = 0; t < TREES; t++) {
+				tree[t].positionY -= player.moveSpeed;
+			}
 
-		if (keyDown['d'] == false && keyDown['a'] == false) {
-			player.run();
+			if (key1.staticPosition == false) {
+				key1.positionY -= player.moveSpeed;
+			}
+			if (key2.staticPosition == false) {
+				key2.positionY -= player.moveSpeed;
+			}
+			if (key3.staticPosition == false) {
+				key3.positionY -= player.moveSpeed;
+			}
+
+			if (keyDown['d'] == false && keyDown['a'] == false) {
+				player.run();
+			}
 		}
 	}
 
@@ -166,6 +219,9 @@ void ofApp::update(){
 		player.direction = 0;
 	}
 
+
+	player.zIndex = (player.positionY + player.height - environment.positionY) - 10;
+	/*cout << "ZIND:" << player.zIndex << "\n";*/
 	//keys
 	keyLogic();
 
@@ -177,7 +233,7 @@ void ofApp::draw(){
 
 
 
-	render.draw(&player, &enemy, &key1, &key2, &key3, &environment);
+	render.draw(&player, &enemy, &key1, &key2, &key3, &environment, tree , TREES);
 
 
 }
