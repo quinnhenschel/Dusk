@@ -18,8 +18,6 @@ public:
 	Enemy();
 	~Enemy();
 
-	void move();
-	void detectPlayerRange();
 	bool attack(Player* player);
 	void stateMachine(Player* player);
 	void checkArrowCollision(Arrow* arrow);

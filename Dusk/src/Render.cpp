@@ -20,17 +20,15 @@ void Render::moveCamera()
 	cout << "pew";
 }
 
-void Render::draw(Player* player, Enemy* enemy1, Enemy* enemy2, Enemy* enemy3, GameObject* key1, GameObject* key2, GameObject* key3, GameObject* environment, Arrow* arrow, GameObject* heart1, GameObject* heart2, GameObject* heart3, GameObject* startScreen, GameObject* winScreen, GameObject* loseScreen, int gameState)
+void Render::draw(Player* player, Enemy* enemy1, Enemy* enemy2, Enemy* enemy3, GameObject* key1, GameObject* key2, GameObject* key3, GameObject* environment, Arrow* arrow, GameObject* heart1, GameObject* heart2, GameObject* heart3, GameObject* startScreen, GameObject* winScreen, GameObject* loseScreen, int gameState, GameObject* tree, int tree_size)
 {
 	environment->Draw();
-	
-	key1->Draw();
-	key2->Draw();
-	key3->Draw();
 
-	heart1->Draw();
-	heart2->Draw();
-	heart3->Draw();
+	std::sort(tree, tree + tree_size,
+		[](GameObject const & a, GameObject const & b) -> bool
+	{ return a.zIndex < b.zIndex; });
+	
+	bool player_drawn = false;
 
 	enemy1->Animate();
 	enemy2->Animate();
@@ -38,10 +36,31 @@ void Render::draw(Player* player, Enemy* enemy1, Enemy* enemy2, Enemy* enemy3, G
 
 	drawArrow(player, arrow);
 	player->drawBackArm();
-	player->Animate();
-	player->drawFrontArm();
+	
+	for (int i = 0; i < tree_size; i++) {
+		if (tree[i].zIndex > player->zIndex && !player_drawn) {
+			player->Animate();
+			player->drawFrontArm();
+			player_drawn = true;
+		}
+		tree[i].Draw();
+
+	}
+	if (player_drawn == false)
+	{
+		player->Animate();
+		player->drawFrontArm();
+	}
 
 	player->drawCursor();
+
+	heart1->Draw();
+	heart2->Draw();
+	heart3->Draw();
+
+	key1->Draw();
+	key2->Draw();
+	key3->Draw();
 
 	if (gameState == 0) {
 		startScreen->Draw();

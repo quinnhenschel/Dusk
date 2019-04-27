@@ -43,23 +43,19 @@ void AnimatedObject::Animate()
 	{
 		if (direction == 0)
 		{
-			if (lastFacing == 2)
-			{
+			if (lastFacing == 2){
 				standingStill.mirror(0, 1);
 				standingStill.draw(positionX, positionY);
 				standingStill.mirror(0, 1);
 			}
-			else
-			{
+			else{
 				standingStill.draw(positionX, positionY);
 			}
 		}
-		else if (direction == 1)
-		{
+		else if (direction == 1){
 			runningAnimation[currentFrame].draw(positionX, positionY);
 		}
-		else if (direction == 2)
-		{
+		else if (direction == 2){
 			runningAnimation[currentFrame].mirror(0, 1);
 			runningAnimation[currentFrame].draw(positionX, positionY);
 			runningAnimation[currentFrame].mirror(0, 1);

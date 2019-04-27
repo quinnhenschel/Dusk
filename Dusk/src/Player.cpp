@@ -1,7 +1,6 @@
 #include "ofMain.h"
 #include "Player.h"
 
-
 Player::Player()
 {
 	armImg.load("images/characterArm.png");
@@ -45,20 +44,7 @@ Player::Player()
 
 Player::~Player()
 {
-}
 
-void Player::move()
-{
-	cout << "move";
-}
-
-void Player::shootArrow()
-{
-	cout << "pew";
-}
-void Player::pickup()
-{
-	cout << "pickup";
 }
 
 void Player::drawFrontArm()
@@ -80,7 +66,6 @@ void Player::drawFrontArm()
 	ofTranslate(-638, -390, 0);
 	armImg.draw(positionX, positionY);       
 	ofPopMatrix();               
-	
 }
 
 void Player::drawBackArm()
@@ -102,7 +87,6 @@ void Player::drawBackArm()
 	ofTranslate(-638, -390, 0);
 	armBackImg.draw(positionX, positionY);
 	ofPopMatrix();
-
 }
 
 

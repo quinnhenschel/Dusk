@@ -1,7 +1,6 @@
 #include "ofMain.h"
 #include "Arrow.h"
 
-
 Arrow::Arrow()
 {
 	maxFlightTime = 24;
@@ -10,8 +9,6 @@ Arrow::Arrow()
 	img.load("images/arrow.png");
 	staticPosition = true;
 }
-
-
 
 Arrow::~Arrow()
 {

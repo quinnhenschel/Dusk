@@ -17,9 +17,6 @@ public:
 	Player();
 	~Player();
 
-	void move();
-	void shootArrow();
-	void pickup();
 	void drawBackArm();
 	void drawFrontArm();
 	void drawCursor();
