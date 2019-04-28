@@ -4,7 +4,6 @@
 
 Physics::Physics()
 {
-	
 	black.r = 0;
 	black.g = 0;
 	black.b = 0;
@@ -12,6 +11,7 @@ Physics::Physics()
 
 Physics::~Physics()
 {
+
 }
 
 int Physics::checkDistance(int x1, int y1, int x2, int y2)
@@ -43,10 +43,4 @@ void Physics::setCollisionMap(ofImage * collisionMap)
 		}
 	}
 }
-
-
-//int Physics::getAngle(objectX, objectY)
-//{
-//	cout << "pew";
-//}
 

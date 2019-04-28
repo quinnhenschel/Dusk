@@ -11,7 +11,6 @@ GameObject::GameObject()
 	zIndex = 0;
 	width = 60;
 	height = 140;
-
 }
 
 
